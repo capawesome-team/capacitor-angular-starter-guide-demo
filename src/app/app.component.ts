@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { Capacitor } from '@capacitor/core';
 import { SplashScreen } from '@capacitor/splash-screen';
-import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
+import { IonApp, IonRouterOutlet } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import {
   mapOutline,
@@ -21,6 +21,7 @@ import {
   documentOutline,
   closeCircle,
   cameraOutline,
+  imageOutline,
   closeOutline,
   cashOutline,
   timeOutline,
@@ -67,6 +68,7 @@ export class AppComponent implements OnInit {
       documentOutline,
       closeCircle,
       cameraOutline,
+      imageOutline,
       closeOutline,
       cashOutline,
       timeOutline,

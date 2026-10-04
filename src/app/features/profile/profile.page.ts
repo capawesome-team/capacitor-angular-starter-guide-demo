@@ -29,7 +29,7 @@ import {
   IonSkeletonText,
   ActionSheetController,
   ToastController
-} from '@ionic/angular/standalone';
+} from '@ionic/angular';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { Capacitor } from '@capacitor/core';
 import { CURRENCIES } from '../../core/constants/currencies';
