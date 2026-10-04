@@ -63,6 +63,8 @@ jobs:
         run: npm run build
       - name: Sync Capacitor
         run: npx cap sync ios
+      - name: Add GoogleService-Info.plist
+        run: echo "${{ secrets.GOOGLE_SERVICE_INFO_PLIST_BASE64 }}" | base64 --decode > ios/App/App/GoogleService-Info.plist
       - name: Build iOS app
         working-directory: ios/App
         run: xcodebuild -project App.xcodeproj -scheme App -configuration Debug -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO build
