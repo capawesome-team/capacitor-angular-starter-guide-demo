@@ -35,7 +35,7 @@ import {
   IonChip,
   ActionSheetController,
   ToastController
-} from '@ionic/angular/standalone';
+} from '@ionic/angular';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { FilePicker } from '@capawesome/capacitor-file-picker';
 import { Capacitor } from '@capacitor/core';

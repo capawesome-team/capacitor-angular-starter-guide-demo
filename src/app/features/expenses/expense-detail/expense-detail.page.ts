@@ -23,7 +23,7 @@ import {
   IonSkeletonText,
   AlertController,
   ToastController
-} from '@ionic/angular/standalone';
+} from '@ionic/angular';
 import { Expense } from '../../../core/models/expense.model';
 import { getCategoryById } from '../../../core/constants/categories';
 import { ExpensesRepository } from '../../../core/services/expenses.repository';

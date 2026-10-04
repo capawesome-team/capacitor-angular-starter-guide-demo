@@ -13,7 +13,7 @@ import {
   IonItemSliding,
   IonItemOptions,
   IonItemOption
-} from '@ionic/angular/standalone';
+} from '@ionic/angular';
 import { Expense } from '../../../core/models/expense.model';
 import { getCategoryById } from '../../../core/constants/categories';
 import { CurrencyFormatPipe } from '../../pipes/currency-format.pipe';

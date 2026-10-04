@@ -12,8 +12,7 @@ import {
   FormBuilder,
   FormGroup,
   Validators,
-  ReactiveFormsModule,
-  FormsModule
+  ReactiveFormsModule
 } from '@angular/forms';
 import {
   IonHeader,
@@ -33,20 +32,16 @@ import {
   IonLoading,
   IonLabel,
   IonModal,
+  IonDatetime,
+  IonDatetimeButton,
   IonChip,
   IonIcon,
   ActionSheetController,
   ToastController
-} from '@ionic/angular/standalone';
-import {
-  CalendarComponentOptions,
-  CalendarComponentTypeProperty,
-  IonRangeCalendarComponent
-} from '@googlproxer/ion-range-calendar';
+} from '@ionic/angular';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { FilePicker } from '@capawesome/capacitor-file-picker';
 import { Capacitor } from '@capacitor/core';
-import { format, parseISO } from 'date-fns';
 import { CURRENCIES } from '../../../core/constants/currencies';
 import { randomTripColor } from '../../../core/constants/trip-colors';
 import { TripCoverImage } from '../../../core/models/trip.model';
@@ -74,9 +69,9 @@ type TripFormModel = {
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    FormsModule,
-    IonRangeCalendarComponent,
     IonModal,
+    IonDatetime,
+    IonDatetimeButton,
     IonHeader,
     IonToolbar,
     IonTitle,
@@ -115,30 +110,6 @@ export class TripFormPage implements OnInit {
   coverImage = signal<CoverPreview | null>(null);
   @ViewChild(IonLoading) private savingLoader?: IonLoading;
 
-  dateRange: { from?: Date; to?: Date } = {};
-  dateType: CalendarComponentTypeProperty = 'js-date';
-  dateOptions: CalendarComponentOptions = {
-    pickMode: 'range',
-    showToggleButtons: true,
-    showMonthPicker: true,
-    monthFormat: 'MMM yyyy',
-    monthPickerFormat: [
-      'JAN',
-      'FEB',
-      'MAR',
-      'APR',
-      'MAY',
-      'JUN',
-      'JUL',
-      'AUG',
-      'SEP',
-      'OCT',
-      'NOV',
-      'DEC'
-    ]
-  };
-  dateModalOpen = false;
-
   form: FormGroup<TripFormModel> = this.fb.group({
     name: this.fb.nonNullable.control('', [
       Validators.required,
@@ -161,9 +132,7 @@ export class TripFormPage implements OnInit {
       await this.loadTrip();
     } else {
       const today = new Date().toISOString().split('T')[0];
-      const todayDate = parseISO(today);
       this.form.patchValue({ startDate: today, endDate: today });
-      this.dateRange = { from: todayDate, to: todayDate };
     }
   }
 
@@ -178,10 +147,6 @@ export class TripFormPage implements OnInit {
         currency: trip.currency,
         budget: trip.budget ?? null
       });
-      this.dateRange = {
-        from: trip.startDate ? parseISO(trip.startDate) : undefined,
-        to: trip.endDate ? parseISO(trip.endDate) : undefined
-      };
       if (trip.coverImage?.downloadUrl) {
         this.coverImage.set({
           uri: trip.coverImage.downloadUrl,
@@ -194,36 +159,11 @@ export class TripFormPage implements OnInit {
     }
   }
 
-  openDateRangeModal(): void {
-    const start = this.form.controls.startDate.value;
-    const end = this.form.controls.endDate.value;
-    if (start) {
-      this.dateRange = {
-        from: parseISO(start),
-        to: end ? parseISO(end) : parseISO(start)
-      };
+  onStartDateChange(): void {
+    const { startDate, endDate } = this.form.controls;
+    if (startDate.value > endDate.value) {
+      endDate.setValue(startDate.value);
     }
-    this.dateModalOpen = true;
-  }
-
-  cancelDateRangeModal(): void {
-    this.dateModalOpen = false;
-  }
-
-  applyDateRangeModal(): void {
-    const from = this.dateRange.from;
-    if (!from) {
-      this.dateModalOpen = false;
-      return;
-    }
-    const to = this.dateRange.to ?? from;
-    const fromStr = format(from, 'yyyy-MM-dd');
-    const toStr = format(to, 'yyyy-MM-dd');
-    this.form.patchValue({
-      startDate: fromStr,
-      endDate: toStr
-    });
-    this.dateModalOpen = false;
   }
 
   async attachCoverImage(): Promise<void> {

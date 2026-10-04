@@ -20,7 +20,7 @@ import {
   IonCardContent,
   IonSkeletonText,
   ToastController
-} from '@ionic/angular/standalone';
+} from '@ionic/angular';
 import { Trip } from '../../core/models/trip.model';
 import { TripsRepository } from '../../core/services/trips.repository';
 import { CurrencyFormatPipe } from '../../shared/pipes/currency-format.pipe';
