@@ -1,4 +1,11 @@
-import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  signal,
+  ViewChild,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import {
   FormControl,
   FormBuilder,
@@ -64,6 +71,7 @@ type ProfileFormModel = {
     IonSkeletonText
   ],
   templateUrl: './profile.page.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./profile.page.scss']
 })
 export class ProfilePage implements OnInit {

@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 import { IonIcon } from '@ionic/angular/standalone';
 
 @Component({
@@ -13,6 +13,7 @@ import { IonIcon } from '@ionic/angular/standalone';
       <ng-content></ng-content>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: [
     `
       .empty-state {

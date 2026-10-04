@@ -1,4 +1,11 @@
-import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  signal,
+  ViewChild,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   FormControl,
@@ -79,6 +86,7 @@ type ExpenseFormModel = {
     IonChip
   ],
   templateUrl: './expense-form.page.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./expense-form.page.scss']
 })
 export class ExpenseFormPage implements OnInit {
@@ -227,7 +235,7 @@ export class ExpenseFormPage implements OnInit {
         const fileName = `receipt_${Date.now()}.${photo.format}`;
         this.attachment.set({
           uri: Capacitor.isNativePlatform()
-            ? photo.path ?? photo.webPath
+            ? (photo.path ?? photo.webPath)
             : photo.webPath,
           fileName,
           mimeType: `image/${photo.format}`

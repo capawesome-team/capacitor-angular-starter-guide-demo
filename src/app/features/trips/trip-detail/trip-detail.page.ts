@@ -1,4 +1,11 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  OnInit,
+  signal,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   IonHeader,
@@ -54,6 +61,7 @@ import {
     IonSkeletonText
   ],
   templateUrl: './trip-detail.page.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./trip-detail.page.scss']
 })
 export class TripDetailPage implements OnInit {

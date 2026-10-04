@@ -1,4 +1,9 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { Capacitor } from '@capacitor/core';
 import { SplashScreen } from '@capacitor/splash-screen';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
@@ -38,6 +43,7 @@ import { FirebaseService } from './core/services/firebase.service';
   selector: 'app-root',
   standalone: true,
   imports: [IonApp, IonRouterOutlet],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <ion-app>
       <ion-router-outlet></ion-router-outlet>

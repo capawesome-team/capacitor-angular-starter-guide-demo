@@ -1,4 +1,10 @@
-import { Component, computed, input, output } from '@angular/core';
+import {
+  Component,
+  computed,
+  input,
+  output,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { DatePipe } from '@angular/common';
 import {
   IonItem,
@@ -43,14 +49,16 @@ import { CurrencyFormatPipe } from '../../pipes/currency-format.pipe';
         <ion-label>
           <h2>{{ getCategory().label }}</h2>
           <p>
-            {{ expense().date | date : 'mediumDate' }} @if (expense().notes) { ·
-            {{ expense().notes }}
+            {{ expense().date | date: 'mediumDate' }}
+            @if (expense().notes) {
+              ·
+              {{ expense().notes }}
             }
           </p>
         </ion-label>
         <div class="expense-amount" slot="end">
           <strong>{{
-            expense().amount | currencyFormat : expense().currency
+            expense().amount | currencyFormat: expense().currency
           }}</strong>
         </div>
       </ion-item>
@@ -61,6 +69,7 @@ import { CurrencyFormatPipe } from '../../pipes/currency-format.pipe';
       </ion-item-options>
     </ion-item-sliding>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: [
     `
       ion-item {
@@ -102,7 +111,6 @@ import { CurrencyFormatPipe } from '../../pipes/currency-format.pipe';
           color: var(--ion-text-color);
         }
       }
-
     `
   ]
 })

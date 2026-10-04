@@ -1,4 +1,11 @@
-import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  signal,
+  ViewChild,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   FormControl,
@@ -90,6 +97,7 @@ type TripFormModel = {
     IonIcon
   ],
   templateUrl: './trip-form.page.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./trip-form.page.scss']
 })
 export class TripFormPage implements OnInit {
@@ -257,7 +265,7 @@ export class TripFormPage implements OnInit {
       const fileName = `trip_cover_${Date.now()}.${formatExt}`;
       this.coverImage.set({
         uri: Capacitor.isNativePlatform()
-          ? photo.path ?? photo.webPath
+          ? (photo.path ?? photo.webPath)
           : photo.webPath,
         fileName,
         mimeType: `image/${formatExt}`

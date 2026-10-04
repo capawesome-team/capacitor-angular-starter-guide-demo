@@ -1,4 +1,9 @@
-import { Component, inject, signal } from '@angular/core';
+import {
+  Component,
+  inject,
+  signal,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { Router } from '@angular/router';
 import {
   IonHeader,
@@ -47,6 +52,7 @@ import {
     IonSkeletonText
   ],
   templateUrl: './trips.page.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./trips.page.scss']
 })
 export class TripsPage {

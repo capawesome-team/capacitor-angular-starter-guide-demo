@@ -1,4 +1,11 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  OnInit,
+  signal,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import {
@@ -44,6 +51,7 @@ import { CurrencyFormatPipe } from '../../../shared/pipes/currency-format.pipe';
     IonSkeletonText
   ],
   templateUrl: './expense-detail.page.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./expense-detail.page.scss']
 })
 export class ExpenseDetailPage implements OnInit {
@@ -57,7 +65,9 @@ export class ExpenseDetailPage implements OnInit {
 
   expense = signal<Expense | null>(null);
   loading = signal(true);
-  category = computed(() => getCategoryById(this.expense()?.category ?? 'other'));
+  category = computed(() =>
+    getCategoryById(this.expense()?.category ?? 'other')
+  );
 
   tripId = '';
   private expenseId = '';
