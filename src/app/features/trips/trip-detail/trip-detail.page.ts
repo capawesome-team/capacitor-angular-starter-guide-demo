@@ -23,7 +23,7 @@ import {
   IonSkeletonText,
   AlertController,
   ToastController
-} from '@ionic/angular/standalone';
+} from '@ionic/angular';
 import { Trip } from '../../../core/models/trip.model';
 import { Expense } from '../../../core/models/expense.model';
 import { TripsRepository } from '../../../core/services/trips.repository';

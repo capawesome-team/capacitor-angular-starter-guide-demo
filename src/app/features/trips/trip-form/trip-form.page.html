@@ -53,13 +53,20 @@
         </ion-textarea>
       </ion-item>
 
-      <ion-item button detail="false" (click)="openDateRangeModal()">
-        <ion-label>
-          <h3>Dates</h3>
-          <p class="trip-form__date-range">
-            {{ form.value.startDate }} – {{ form.value.endDate }}
-          </p>
-        </ion-label>
+      <ion-item>
+        <ion-label>Start date</ion-label>
+        <ion-datetime-button
+          slot="end"
+          datetime="trip-start-date"
+        ></ion-datetime-button>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>End date</ion-label>
+        <ion-datetime-button
+          slot="end"
+          datetime="trip-end-date"
+        ></ion-datetime-button>
       </ion-item>
 
       <ion-item>
@@ -114,36 +121,29 @@
       </ion-button>
       }
     </div>
+
+    <ion-modal [keepContentsMounted]="true">
+      <ng-template>
+        <ion-datetime
+          id="trip-start-date"
+          formControlName="startDate"
+          presentation="date"
+          [showDefaultButtons]="true"
+          (ionChange)="onStartDateChange()"
+        ></ion-datetime>
+      </ng-template>
+    </ion-modal>
+
+    <ion-modal [keepContentsMounted]="true">
+      <ng-template>
+        <ion-datetime
+          id="trip-end-date"
+          formControlName="endDate"
+          presentation="date"
+          [min]="form.value.startDate || undefined"
+          [showDefaultButtons]="true"
+        ></ion-datetime>
+      </ng-template>
+    </ion-modal>
   </form>
-  <ion-modal
-    [isOpen]="dateModalOpen"
-    [initialBreakpoint]="0.7"
-    [breakpoints]="[0, 0.7]"
-    (willDismiss)="cancelDateRangeModal()"
-  >
-    <ng-template>
-      <ion-content>
-        <div class="trip-form-modal">
-          <ion-label>Trip dates</ion-label>
-          <div class="trip-form-modal__calendar">
-            <ion-range-calendar
-              [(ngModel)]="dateRange"
-              [options]="dateOptions"
-              [type]="dateType"
-              [format]="'yyyy-MM-dd'"
-            >
-            </ion-range-calendar>
-          </div>
-          <div class="trip-form-modal__footer">
-            <ion-button color="light" (click)="cancelDateRangeModal()"
-              >Cancel</ion-button
-            >
-            <ion-button color="primary" (click)="applyDateRangeModal()"
-              >Save</ion-button
-            >
-          </div>
-        </div>
-      </ion-content>
-    </ng-template>
-  </ion-modal>
 </ion-content>
