@@ -33,6 +33,7 @@ import {
   IonSpinner,
   IonLoading,
   IonChip,
+  IonSkeletonText,
   ActionSheetController,
   ToastController
 } from '@ionic/angular';
@@ -83,6 +84,7 @@ type ExpenseFormModel = {
     IonIcon,
     IonSpinner,
     IonLoading,
+    IonSkeletonText,
     IonChip
   ],
   templateUrl: './expense-form.page.html',
@@ -104,6 +106,7 @@ export class ExpenseFormPage implements OnInit {
   trips = signal<Trip[]>([]);
   isEdit = signal(false);
   saving = signal(false);
+  loading = signal(false);
   attachment = signal<AttachmentPreview | null>(null);
 
   /** Whether this page was opened from the "Add" tab (no trip context) */
@@ -140,10 +143,17 @@ export class ExpenseFormPage implements OnInit {
 
     if (this.expenseId && this.tripId) {
       this.isEdit.set(true);
-      await this.loadExpense();
+      this.loading.set(true);
     }
 
-    await this.loadTrips();
+    try {
+      if (this.isEdit()) {
+        await this.loadExpense();
+      }
+      await this.loadTrips();
+    } finally {
+      this.loading.set(false);
+    }
   }
 
   private async loadTrips(): Promise<void> {
