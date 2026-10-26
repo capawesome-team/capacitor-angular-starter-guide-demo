@@ -8,9 +8,9 @@ This repo is the demo app we build in our Capacitor Angular Starter guide to wra
 
 ## Built with
 
-- Angular 21
-- Ionic 8
-- Capacitor 8
+- Angular 22
+- Ionic 9
+- Capacitor 8.5
 - Firebase (Firestore + Storage)
 
 ## Getting started
