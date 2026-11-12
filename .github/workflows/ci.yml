@@ -19,6 +19,7 @@ jobs:
   android:
     name: Android
     runs-on: ubuntu-latest
+    if: github.actor != 'dependabot[bot]'
     steps:
       - name: Check out repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -47,6 +48,7 @@ jobs:
   ios:
     name: iOS
     runs-on: macos-latest
+    if: github.actor != 'dependabot[bot]'
     steps:
       - name: Check out repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
